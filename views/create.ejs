@@ -1,0 +1,17 @@
+<%- include('template/header.ejs',{title: 'Create new pet' }) %>
+
+
+
+
+    <div class="container">
+        <h1 class="text-primary">Create</h1>
+        <form action=" /pets" method="POST">
+            <input type="text" placeholder="Name" class="form-control my-2" name="name">
+            <input type="text" placeholder="Description" class="form-control my-2" name="description">
+            <button type="submit" class="btn btn-success btn-block">Add</button>
+
+        </form>
+    </div>
+
+
+    <%- include('template/footer.ejs') %>
