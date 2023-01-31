@@ -1,0 +1,95 @@
+<%- include('template/header.ejs',{title: 'Pets Details ' }) %>
+
+    <div class="container">
+        <h1>Details</h1>
+        <% if (error) { %>
+            <p>
+                <%= message %>
+            </p>
+            <a class="btn btn-dark btn-block col-12" href="/pets"> Back to pets</a>
+            <% } %>
+
+                <% if (!error) { %>
+
+                    <form id="formEdit" data-id="<%= pet.id %>">
+                        <input type="text" class="form-control my-2" name="name" value="<%= pet.name %> ">
+                        <input type="text" class="form-control my-2" name="description" value="<%= pet.description %> ">
+                        <button type="submit" class="btn btn-block btn-warning col-12">Update</button>
+                    </form>
+
+                    <button class="btn btn-danger btn-sm mt-4" id="btnDelete" data-id="<%= pet.id %>">
+                        Delete
+                    </button>
+
+
+
+
+                    <% } %>
+
+
+    </div>
+
+
+    <script>
+        const btnDelete = document.querySelector('#btnDelete')
+        btnDelete.addEventListener('click', async () => {
+
+            const id = btnDelete.dataset.id;
+            try {
+                const data = await fetch(`/pets/${id}`, {
+                    method: 'delete'
+                })
+                const res = await data.json()
+
+
+                if (res.status) {
+                    window.location.href = '/pets'
+                    console.log(res)
+                } else {
+                    console.log(res)
+                }
+
+            } catch (error) {
+                console.log(error)
+            }
+        })
+
+
+        const btnEdit = document.querySelector('#formEdit')
+        btnEdit.addEventListener('submit', async (e) => {
+
+            e.preventDefault()
+            const id = btnEdit.dataset.id;
+            const name = btnEdit.elements['name'].value
+            const description = btnEdit.elements['description'].value
+
+
+            try {
+                const data = await fetch(`/pets/${id}`, {
+                    method: 'put',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        description: description
+                    })
+
+
+                })
+                const res = await data.json()
+
+                if (res.status) {
+                    window.location.href = '/pets'
+                } else {
+                    console.log(res)
+                }
+
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }) 
+    </script>
+
+    <%- include('template/footer.ejs') %>

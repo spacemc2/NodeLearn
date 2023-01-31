@@ -3,7 +3,7 @@
     <div class="container">
 
         <h1>CRUD Mongo</h1>
-        <a class="btn btn-success btn-block col-12" href="/pets/create">New pet</a>
+       
 
         <% if ( arrayPets.length> 0) { %>
 
@@ -15,6 +15,8 @@
                         <th scope="col">Id</th>
                         <th scope="col">Name</th>
                         <th scope="col">Description</th>
+                        <th scope="col">Action</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +32,9 @@
                             <td>
                                 <%= element.description %>
                             </td>
+                            <td>
+                                <a href="pets/<%= element.id %>" class="btn btn-sm btn-warning">Edit</a>
+                            </td>
                         </tr>
 
                         <% }) %>
@@ -40,6 +45,7 @@
 
 
             <% } %>
+            <a class="btn btn-success btn-block col-12" href="/pets/create">New pet</a>
     </div>
 
     <%- include('template/footer.ejs') %>
